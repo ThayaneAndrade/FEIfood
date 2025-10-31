@@ -4,6 +4,7 @@
  */
 package feifood;
 
+import View.Login;
 /**
  *
  * @author thaya
@@ -14,7 +15,8 @@ public class FEIFood {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+       Login l = new Login();
+       l.setVisible(true);
     }
     
 }

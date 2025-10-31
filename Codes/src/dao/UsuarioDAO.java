@@ -19,45 +19,48 @@ public class UsuarioDAO {
         this.conn = conn;
     }
    
-   public ResultSet consultar(Usuario usuario) throws SQLException {
-        String sql = "SELECT * FROM usuarios WHERE usuario = ? AND senha = ?";
-        PreparedStatement statement = conn.prepareStatement(sql); 
-        statement.setString(1, usuario.getUsuario());
-        statement.setString(2, usuario.getSenha()); 
-        statement.execute(); 
-        ResultSet resultado = statement.getResultSet(); 
-        return resultado;
-    }
+   public ResultSet consultar(Usuario usuario)throws SQLException{
+       String sql = "select * from tbUsuario? where usuario = ? and senha = ?";
+       PreparedStatement statement = conn.prepareStatement(sql);
+       statement.setString(1, usuario.getUsuario());
+       statement.setString(2, usuario.getSenha());
+       statement.execute();
+       ResultSet resultado = statement.getResultSet();
+       return resultado;
+       
+   }
+   
    
    public void inserir(Usuario usuario) throws SQLException {
-        String sql = "INSERT INTO usuarios (nome, usuario, senha) VALUES (?, ?, ?)";
-        
-        PreparedStatement statement = conn.prepareStatement(sql);
-        statement.setString(1, usuario.getNome());
-        statement.setString(2, usuario.getUsuario());
-        statement.setString(3, usuario.getSenha());
-        
+        String sql = "INSERT INTO tbusuarios (nome, usuario, senha) VALUES ('"
+                                                       + usuario.getNome() + "','"
+                                                       + usuario.getUsuario() + "','"
+                                                       + usuario.getSenha() + "')'";
+        PreparedStatement statement = conn.prepareStatement(sql);  
         statement.execute();
+        conn.close();
    }
    
    public void atualizar(Usuario usuario) throws SQLException {
-        String sql = "UPDATE usuarios SET senha = ? WHERE usuario = ?";
+        String sql = "UPDATE tbusuarios SET senha = ? WHERE usuario = ?";
         
         PreparedStatement statement = conn.prepareStatement(sql);
         statement.setString(1, usuario.getSenha()); 
         statement.setString(2, usuario.getUsuario()); 
         
         statement.execute();
+        conn.close();
         
    }
    
    public void remover(Usuario usuario) throws SQLException {
-        String sql = "DELETE FROM usuarios WHERE usuario = ?"; 
+        String sql = "DELETE FROM tbusuarios WHERE usuario = ?"; 
         
         PreparedStatement statement = conn.prepareStatement(sql);
         statement.setString(1, usuario.getUsuario()); 
         
         statement.execute(); 
+        conn.close();
        
     }
 }

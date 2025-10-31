@@ -14,7 +14,7 @@ public class Usuario {
     private String usuario;
     private String senha;
 
-    public Usuario() {
+    public Usuario(String usu, Usuario usuario1, String senha1) {
     }
 
     public Usuario(String nome, String usuario, String senha) {

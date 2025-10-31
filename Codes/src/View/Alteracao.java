@@ -4,6 +4,12 @@
  */
 package View;
 
+import Controller.ControleAlteracao;
+import Model.Usuario;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
 /**
  *
  * @author thaya
@@ -15,8 +21,10 @@ public class Alteracao extends javax.swing.JFrame {
     /**
      * Creates new form Alteracao
      */
-    public Alteracao() {
+    public Alteracao(Usuario usuario) {
         initComponents();
+        lblNome.setText(usuario.getNome());
+        c = new ControleAlteracao(this, usuario);
     }
 
     /**
@@ -48,8 +56,6 @@ public class Alteracao extends javax.swing.JFrame {
         });
 
         btVoltar.setText("VOLTAR");
-
-        txtNovaSenha.setText("jTextField1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -90,34 +96,34 @@ public class Alteracao extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-        // TODO add your handling code here:
+        c.atualizar();
     }//GEN-LAST:event_btSalvarActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new Alteracao().setVisible(true));
-    }
-
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
+//            logger.log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(() -> new Alteracao().setVisible(true));
+//    }
+private ControleAlteracao c;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btSalvar;
     private javax.swing.JButton btVoltar;
@@ -125,4 +131,45 @@ public class Alteracao extends javax.swing.JFrame {
     private javax.swing.JLabel lblNome;
     private javax.swing.JTextField txtNovaSenha;
     // End of variables declaration//GEN-END:variables
+
+    public JButton getBtSalvar() {
+        return btSalvar;
+    }
+
+    public void setBtSalvar(JButton btSalvar) {
+        this.btSalvar = btSalvar;
+    }
+
+    public JButton getBtVoltar() {
+        return btVoltar;
+    }
+
+    public void setBtVoltar(JButton btVoltar) {
+        this.btVoltar = btVoltar;
+    }
+
+    public JLabel getLblDesejo() {
+        return lblDesejo;
+    }
+
+    public void setLblDesejo(JLabel lblDesejo) {
+        this.lblDesejo = lblDesejo;
+    }
+
+    public JLabel getLblNome() {
+        return lblNome;
+    }
+
+    public void setLblNome(JLabel lblNome) {
+        this.lblNome = lblNome;
+    }
+
+    public JTextField getTxtNovaSenha() {
+        return txtNovaSenha;
+    }
+
+    public void setTxtNovaSenha(JTextField txtNovaSenha) {
+        this.txtNovaSenha = txtNovaSenha;
+    }
+
 }
