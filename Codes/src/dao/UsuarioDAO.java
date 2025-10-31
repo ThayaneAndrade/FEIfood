@@ -20,10 +20,12 @@ public class UsuarioDAO {
     }
    
    public ResultSet consultar(Usuario usuario)throws SQLException{
-       String sql = "select * from tbUsuario? where usuario = ? and senha = ?";
+       String sql = "select * from tbusuarios where usuario_usu = ? and "
+               + "  senha_usu = ?";
        PreparedStatement statement = conn.prepareStatement(sql);
-       statement.setString(1, usuario.getUsuario());
+       statement.setString(1, usuario.getNome());
        statement.setString(2, usuario.getSenha());
+       statement.setString(1, usuario.getSenha());
        statement.execute();
        ResultSet resultado = statement.getResultSet();
        return resultado;
@@ -32,7 +34,7 @@ public class UsuarioDAO {
    
    
    public void inserir(Usuario usuario) throws SQLException {
-        String sql = "INSERT INTO tbusuarios (nome, usuario, senha) VALUES ('"
+        String sql = "INSERT INTO tbusuarios (nome_usu, usuario_usu, senha_usu) VALUES ('"
                                                        + usuario.getNome() + "','"
                                                        + usuario.getUsuario() + "','"
                                                        + usuario.getSenha() + "')'";
@@ -42,7 +44,7 @@ public class UsuarioDAO {
    }
    
    public void atualizar(Usuario usuario) throws SQLException {
-        String sql = "UPDATE tbusuarios SET senha = ? WHERE usuario = ?";
+        String sql = "UPDATE tbusuarios SET senha_usu = ? WHERE usuario_usu = ?";
         
         PreparedStatement statement = conn.prepareStatement(sql);
         statement.setString(1, usuario.getSenha()); 
@@ -54,7 +56,7 @@ public class UsuarioDAO {
    }
    
    public void remover(Usuario usuario) throws SQLException {
-        String sql = "DELETE FROM tbusuarios WHERE usuario = ?"; 
+        String sql = "DELETE FROM tbusuarios WHERE usuario_usu = ?"; 
         
         PreparedStatement statement = conn.prepareStatement(sql);
         statement.setString(1, usuario.getUsuario()); 

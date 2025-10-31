@@ -24,9 +24,10 @@ public class ControleCadastro {
     }
     
     public void salvarUsuario(){
+        String nome = tela3.getTxtNome().getText();
         String usuario = tela3.getTxtUsuario().getText();
         String senha = tela3.getTxtSenha().getText();
-        Usuario cliente = new Usuario(usuario, usuario, senha);
+        Usuario cliente = new Usuario(nome, usuario, senha);
         
         Conexao conexao = new Conexao();
         try{

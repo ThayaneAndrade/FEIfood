@@ -13,9 +13,9 @@ import java.sql.SQLException;
 public class Conexao {
     public Connection getConnection() throws SQLException {
         Connection conexao = DriverManager.getConnection(
-                "jdbc:postgresql://localhost:5432/feifood", //Verifique este nome!
-                "postgres", //Usuário padrão
-                "0711"); //Senha que usamos no pgAdmin
-return conexao;
+                "jdbc:postgresql://localhost:5432/feifood", "postgres",
+                "0711"); 
+        
+        return conexao;
     }
 }
