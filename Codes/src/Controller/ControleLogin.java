@@ -42,8 +42,11 @@ public class ControleLogin {
                 String usu = res.getString("usuario_usu");
                 String senha = res.getString("senha_usu");
                 Logado tela2 = new Logado (new Usuario(nome, usu, senha));
+                tela2.setLocationRelativeTo(tela1);
                 tela2.setVisible(true);
-                tela1.setVisible(false);
+                tela1.dispose();
+ 
+                
             }else{
                 JOptionPane.showMessageDialog(tela1, "Login não efetuado",
                                              "ERRO" ,JOptionPane.ERROR_MESSAGE);

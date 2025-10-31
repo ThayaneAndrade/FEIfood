@@ -22,6 +22,7 @@ public class Logado extends javax.swing.JFrame {
      */
     public Logado(Usuario usuario) {
         initComponents();
+        setLocationRelativeTo(null);
         lblDesejo.setText((usuario.getNome()));
         c = new ControleLogado(this, usuario);
     }
@@ -39,6 +40,7 @@ public class Logado extends javax.swing.JFrame {
         lblDesejo = new javax.swing.JLabel();
         btAlterar = new javax.swing.JButton();
         btExcluir = new javax.swing.JButton();
+        btMenu = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -60,6 +62,13 @@ public class Logado extends javax.swing.JFrame {
             }
         });
 
+        btMenu.setText("MENU");
+        btMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btMenuActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -77,6 +86,10 @@ public class Logado extends javax.swing.JFrame {
                     .addComponent(btExcluir)
                     .addComponent(lblDesejo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btMenu)
+                .addGap(138, 138, 138))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -89,7 +102,9 @@ public class Logado extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btAlterar)
                     .addComponent(btExcluir))
-                .addGap(81, 81, 81))
+                .addGap(28, 28, 28)
+                .addComponent(btMenu)
+                .addGap(30, 30, 30))
         );
 
         pack();
@@ -106,6 +121,14 @@ public class Logado extends javax.swing.JFrame {
         Exclusao exc = new Exclusao(usuario);
         exc.setVisible(true);
     }//GEN-LAST:event_btExcluirActionPerformed
+
+    private void btMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btMenuActionPerformed
+    BuscaAlimento telaBusca = new BuscaAlimento();
+    new Controller.ControleBuscaAlimento(telaBusca);
+    setLocationRelativeTo(null);
+    telaBusca.setVisible(true);
+    this.dispose();
+    }//GEN-LAST:event_btMenuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -135,6 +158,7 @@ private ControleLogado c;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAlterar;
     private javax.swing.JButton btExcluir;
+    private javax.swing.JButton btMenu;
     private javax.swing.JLabel lblDesejo;
     private javax.swing.JLabel lblNome;
     // End of variables declaration//GEN-END:variables

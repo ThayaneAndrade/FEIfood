@@ -22,6 +22,7 @@ public class Exclusao extends javax.swing.JFrame {
      */
     public Exclusao(Usuario usuario) {
         initComponents();
+        setLocationRelativeTo(null);
         lblNome.setText(usuario.getNome());
         c = new ControleExclusao(this, usuario);
     }

@@ -7,11 +7,13 @@ import dao.UsuarioDAO;
 import dao.Conexao;
 import Model.Usuario;
 import View.Cadastro;
+import View.Login;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import javax.swing.text.View;
 /**
  *
  * @author thaya
@@ -36,6 +38,11 @@ public class ControleCadastro {
             dao.inserir(cliente);
             JOptionPane.showMessageDialog(tela3, "Usuario Cadastrado!", "AVISO",
                                             JOptionPane.INFORMATION_MESSAGE);
+            tela3.dispose();
+            Login telaLogin = new Login();
+            new Controller.ControleLogin(telaLogin);
+            telaLogin.setVisible(true);
+            
         }catch(SQLException ex){
             JOptionPane.showMessageDialog(tela3, "Usuário não Cadastrado!", "ERRO",
                                             JOptionPane.ERROR_MESSAGE);

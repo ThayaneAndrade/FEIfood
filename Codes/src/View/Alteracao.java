@@ -23,6 +23,7 @@ public class Alteracao extends javax.swing.JFrame {
      */
     public Alteracao(Usuario usuario) {
         initComponents();
+        setLocationRelativeTo(null);
         lblNome.setText(usuario.getNome());
         c = new ControleAlteracao(this, usuario);
     }

@@ -26,4 +26,5 @@ public class ControleLogado {
    public Usuario chamarExclusao(){
        return usuario;
    }
+  
 }
