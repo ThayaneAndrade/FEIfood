@@ -38,9 +38,9 @@ public class ControleLogin {
             if(res.next()){
                 JOptionPane.showMessageDialog(tela1, "Login Feito", "AVISO", 
                                               JOptionPane.INFORMATION_MESSAGE);
-                String nome = res.getString("nome");
-                String usu = res.getString("usuario");
-                String senha = res.getString("senha");
+                String nome = res.getString("nome_usu");
+                String usu = res.getString("usuario_usu");
+                String senha = res.getString("senha_usu");
                 Logado tela2 = new Logado (new Usuario(nome, usu, senha));
                 tela2.setVisible(true);
                 tela1.setVisible(false);

@@ -23,9 +23,8 @@ public class UsuarioDAO {
        String sql = "select * from tbusuarios where usuario_usu = ? and "
                + "  senha_usu = ?";
        PreparedStatement statement = conn.prepareStatement(sql);
-       statement.setString(1, usuario.getNome());
+       statement.setString(1, usuario.getUsuario());
        statement.setString(2, usuario.getSenha());
-       statement.setString(1, usuario.getSenha());
        statement.execute();
        ResultSet resultado = statement.getResultSet();
        return resultado;
@@ -34,12 +33,14 @@ public class UsuarioDAO {
    
    
    public void inserir(Usuario usuario) throws SQLException {
-        String sql = "INSERT INTO tbusuarios (nome_usu, usuario_usu, senha_usu) VALUES ('"
-                                                       + usuario.getNome() + "','"
-                                                       + usuario.getUsuario() + "','"
-                                                       + usuario.getSenha() + "')'";
-        PreparedStatement statement = conn.prepareStatement(sql);  
-        statement.execute();
+        String sql = "INSERT INTO tbusuarios (nome_usu, usuario_usu, senha_usu)"
+                + "VALUES (?,?,?)";
+        try(PreparedStatement statement = conn.prepareStatement(sql)){
+                 statement.setString(1, usuario.getNome());
+                 statement.setString(2, usuario.getUsuario());
+                 statement.setString(3, usuario.getSenha());
+                 statement.execute();
+        }
         conn.close();
    }
    
@@ -47,8 +48,9 @@ public class UsuarioDAO {
         String sql = "UPDATE tbusuarios SET senha_usu = ? WHERE usuario_usu = ?";
         
         PreparedStatement statement = conn.prepareStatement(sql);
-        statement.setString(1, usuario.getSenha()); 
+        statement.setString(1, usuario.getNome()); 
         statement.setString(2, usuario.getUsuario()); 
+        statement.setString(2, usuario.getSenha());
         
         statement.execute();
         conn.close();

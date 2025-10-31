@@ -20,7 +20,7 @@ public class ControleExclusao {
     private Exclusao tela5;
     private Usuario usuario;
     
-    public ControleExclusao(Exclusao tela5){
+    public ControleExclusao(Exclusao tela5, Usuario usuario){
         this.tela5 = tela5;
         this.usuario = usuario;
     }
