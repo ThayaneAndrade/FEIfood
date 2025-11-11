@@ -37,7 +37,6 @@ public class ControlePedido {
         this.tela.getTxtData().setEditable(false);
         
         this.tela.getLblIdPedido().setText("Novo");
-        this.tela.getBtAtualizar().setVisible(false);
         this.tela.getBtExcluir().setVisible(false);
         this.tela.getBtSalvar().setVisible(true);
 
@@ -60,7 +59,6 @@ public class ControlePedido {
         this.tela.getTxtData().setEditable(false);
         
         this.tela.getBtSalvar().setVisible(false);
-        this.tela.getBtAtualizar().setVisible(true);
         this.tela.getBtExcluir().setVisible(true);
 
         atualizarTabela(); 
@@ -70,7 +68,6 @@ public class ControlePedido {
     
     private void configurarListeners() {
         this.tela.getBtSalvar().addActionListener(e -> salvar());
-        this.tela.getBtAtualizar().addActionListener(e -> atualizar());
         this.tela.getBtExcluir().addActionListener(e -> excluir());
         this.tela.getBtVoltar().addActionListener(e -> voltar());
         
@@ -168,7 +165,6 @@ public class ControlePedido {
             atualizarTabela();
             
             tela.getBtSalvar().setVisible(false);
-            tela.getBtAtualizar().setVisible(true);
             tela.getBtExcluir().setVisible(true);
             
             tela.dispose(); // Fecha a tela
