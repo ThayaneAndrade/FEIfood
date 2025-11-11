@@ -21,10 +21,61 @@ public class BuscaAlimento extends javax.swing.JFrame {
     public BuscaAlimento() {
         initComponents();
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
      
     
 }
+    public javax.swing.JButton getBtMinhaConta() {
+    return btMinhaConta; // (assumindo que o nome da variável é btMinhaConta)
+}
+
+public javax.swing.JButton getBtMeusPedidos() {
+    return btMeusPedidos; // (assumindo que o nome da variável é btMeusPedidos)
+}
+
+    public JButton getjButton1() {
+        return btMinhaConta;
+    }
+
+    public void setjButton1(JButton jButton1) {
+        this.btMinhaConta = jButton1;
+    }
+
+    public JButton getjButton2() {
+        return btMeusPedidos;
+    }
+
+    public void setjButton2(JButton jButton2) {
+        this.btMeusPedidos = jButton2;
+    }
+
+    public JLabel getjLabel1() {
+        return jLabel1;
+    }
+
+    public void setjLabel1(JLabel jLabel1) {
+        this.jLabel1 = jLabel1;
+    }
+
+    public JScrollPane getjScrollPane1() {
+        return jScrollPane1;
+    }
+
+    public void setjScrollPane1(JScrollPane jScrollPane1) {
+        this.jScrollPane1 = jScrollPane1;
+    }
+
+    public JButton getBtAdicionar() {
+        return btAdicionar;
+    }
+
+    public void setBtAdicionar(JButton btAdicionar) {
+        this.btAdicionar = btAdicionar;
+    }
+
+    public JButton getBtVerPedido() {
+        return btVerPedido;
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -40,7 +91,10 @@ public class BuscaAlimento extends javax.swing.JFrame {
         btBuscar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbResultado = new javax.swing.JTable();
-        btFazerPedido = new javax.swing.JButton();
+        btAdicionar = new javax.swing.JButton();
+        btMinhaConta = new javax.swing.JButton();
+        btMeusPedidos = new javax.swing.JButton();
+        btVerPedido = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -51,21 +105,43 @@ public class BuscaAlimento extends javax.swing.JFrame {
 
         tbResultado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                // Deixe as linhas de exemplo aqui (ou apague-as)
             },
             new String [] {
                 "ID", "Nome", "Preço", "Tipo", "Vegetariano", "Zero"
             }
-        ));
+        ) {
+            // ESTA É A PARTE IMPORTANTE:
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                // Isso força todas as células a NÃO serem editáveis
+                return false;
+            }
+        });
+        tbResultado.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        tbResultado.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         jScrollPane1.setViewportView(tbResultado);
 
-        btFazerPedido.setText("FAZER PEDIDO");
-        btFazerPedido.addActionListener(new java.awt.event.ActionListener() {
+        btAdicionar.setText("ADICIONAR AO PEDIDO");
+        btAdicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btFazerPedidoActionPerformed(evt);
+                btAdicionarActionPerformed(evt);
+            }
+        });
+
+        btMinhaConta.setText("MINHA CONTA");
+        btMinhaConta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btMinhaContaActionPerformed(evt);
+            }
+        });
+
+        btMeusPedidos.setText("MEUS PEDIDOS");
+
+        btVerPedido.setText("VER PEDIDO");
+        btVerPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btVerPedidoActionPerformed(evt);
             }
         });
 
@@ -80,18 +156,26 @@ public class BuscaAlimento extends javax.swing.JFrame {
                 .addComponent(btBuscar)
                 .addGap(0, 119, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(55, 55, 55))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btFazerPedido)
-                        .addGap(110, 110, 110))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
+                        .addComponent(btAdicionar)
+                        .addGap(110, 110, 110))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btMeusPedidos)
+                            .addComponent(btMinhaConta)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(btVerPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(14, 14, 14))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -105,16 +189,30 @@ public class BuscaAlimento extends javax.swing.JFrame {
                 .addGap(40, 40, 40)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(68, 68, 68)
-                .addComponent(btFazerPedido)
-                .addGap(147, 147, 147))
+                .addComponent(btAdicionar)
+                .addGap(50, 50, 50)
+                .addComponent(btMinhaConta)
+                .addGap(10, 10, 10)
+                .addComponent(btVerPedido)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btMeusPedidos)
+                .addGap(12, 12, 12))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btFazerPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFazerPedidoActionPerformed
+    private void btAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btFazerPedidoActionPerformed
+    }//GEN-LAST:event_btAdicionarActionPerformed
+
+    private void btMinhaContaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btMinhaContaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btMinhaContaActionPerformed
+
+    private void btVerPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVerPedidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btVerPedidoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -146,14 +244,17 @@ public class BuscaAlimento extends javax.swing.JFrame {
     public JTable  getTbResultado()  { return tbResultado; }
     public JTextField getTxtBuscar() { return txtBuscar; }
     public JButton getBtFazerPedido() {
-        return btFazerPedido;
+        return btAdicionar;
     }
     
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btAdicionar;
     private javax.swing.JButton btBuscar;
-    private javax.swing.JButton btFazerPedido;
+    private javax.swing.JButton btMeusPedidos;
+    private javax.swing.JButton btMinhaConta;
+    private javax.swing.JButton btVerPedido;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbResultado;

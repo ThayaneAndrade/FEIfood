@@ -48,9 +48,8 @@ public class UsuarioDAO {
         String sql = "UPDATE tbusuarios SET senha_usu = ? WHERE usuario_usu = ?";
         
         PreparedStatement statement = conn.prepareStatement(sql);
-        statement.setString(1, usuario.getNome()); 
-        statement.setString(2, usuario.getUsuario()); 
-        statement.setString(2, usuario.getSenha());
+        statement.setString(1, usuario.getSenha()); 
+        statement.setString(2, usuario.getUsuario());
         
         statement.execute();
         conn.close();

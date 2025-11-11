@@ -27,7 +27,8 @@ public class Logado extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         this.usuario = usuario;
-        lblDesejo.setText((usuario.getNome()));
+        lblDesejo.setText((usuario.getUsuario()));
+        lblNome.setText((usuario.getNome()));
         c = new ControleLogado(this, usuario);
     }
 
@@ -80,15 +81,15 @@ public class Logado extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(118, 118, 118)
-                        .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(100, 100, 100)
-                        .addComponent(btAlterar)))
+                        .addComponent(btAlterar))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(118, 118, 118)
+                        .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(57, 57, 57)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btExcluir)
-                    .addComponent(lblDesejo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblDesejo, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -198,5 +199,4 @@ private ControleLogado c;
     public void setLblNome(JLabel lblNome) {
         this.lblNome = lblNome;
     }
-
 }

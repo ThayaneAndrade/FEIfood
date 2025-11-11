@@ -69,7 +69,7 @@ public class PedidoDAO {
 
         inserirItens(pedido);
 
-        conn.close();
+        // Não feche a conexão aqui, o controller cuidará disso.
     }
 
     private void inserirItens(Pedido pedido) throws SQLException {
@@ -97,23 +97,22 @@ public class PedidoDAO {
                       + "SET data_ped = ?, avaliacao_ped = ? "
                       + "WHERE id_ped = ?";
 
-        PreparedStatement stPed = conn.prepareStatement(sqlPed);
-        stPed.setDate(1, pedido.getDataPed());
+        try (PreparedStatement stPed = conn.prepareStatement(sqlPed)) {
+            stPed.setDate(1, pedido.getDataPed());
 
-        if (pedido.getAvaliacaoPed() == null) {
-            stPed.setNull(2, Types.INTEGER);
-        } else {
-            stPed.setInt(2, pedido.getAvaliacaoPed());
+            if (pedido.getAvaliacaoPed() == null) {
+                stPed.setNull(2, Types.INTEGER);
+            } else {
+                stPed.setInt(2, pedido.getAvaliacaoPed());
+            }
+
+            stPed.setInt(3, pedido.getId());
+            stPed.execute();
         }
-
-        stPed.setInt(3, pedido.getId());
-        stPed.execute();
 
         // Atualiza itens: remove todos e insere de novo (lógica simples)
         removerItens(pedido.getId());
         inserirItens(pedido);
-
-        conn.close();
     }
 
     private void removerItens(int idPedido) throws SQLException {
@@ -132,17 +131,19 @@ public class PedidoDAO {
         // Depois remove o pedido
         String sql = "DELETE FROM tbpedidos WHERE id_ped = ?";
 
-        PreparedStatement st = conn.prepareStatement(sql);
-        st.setInt(1, pedido.getId());
-        st.execute();
-
-        conn.close();
+        try (PreparedStatement st = conn.prepareStatement(sql)) {
+            st.setInt(1, pedido.getId());
+            st.execute();
+        }
     }
 
     // Consulta os itens (alimentos) de um pedido
     public ResultSet consultarItens(Pedido pedido) throws SQLException {
-        String sql = "SELECT a.id_ali, a.nome_ali, a.preco_ali, a.tipo_ali,"
-                + "pa.quantidade "
+        
+        // ESTE É O SQL CORRIGIDO (com vírgula)
+        String sql = "SELECT a.id_ali, a.nome_ali, a.preco_ali, a.tipo_ali, "
+                   + " a.vegetariano, a.zero, " // <-- A VÍRGULA ESTÁ AQUI
+                   + " pa.quantidade "
                    + "FROM tbpedido_alimento pa "
                    + "JOIN tbalimentos a ON pa.alimento_id = a.id_ali "
                    + "WHERE pa.pedido_id = ?";
@@ -151,5 +152,29 @@ public class PedidoDAO {
         st.setInt(1, pedido.getId());
         st.execute();
         return st.getResultSet();
+    }
+    
+    /**
+     * Atualiza SOMENTE a avaliação de um pedido no banco de dados.
+     * Este método é usado pela tela 'MeusPedidos'.
+     * @param idPedido O ID do pedido a ser atualizado.
+     * @param avaliacao A nova nota (ou null).
+     * @throws SQLException
+     */
+    public void atualizarAvaliacao(int idPedido, Integer avaliacao) throws SQLException {
+        String sql = "UPDATE tbpedidos SET avaliacao_ped = ? WHERE id_ped = ?";
+        
+        try (PreparedStatement st = conn.prepareStatement(sql)) {
+            
+            if (avaliacao == null) {
+                st.setNull(1, java.sql.Types.INTEGER);
+            } else {
+                st.setInt(1, avaliacao);
+            }
+            st.setInt(2, idPedido);
+            
+            st.executeUpdate(); // Use executeUpdate para UPDATE
+        }
+        // Não feche a 'conn'. O try-with-resources do Controller cuida disso.
     }
 }

@@ -26,8 +26,9 @@ public class AlimentoDAO {
     }
 
     public List<Alimento> buscarPorNome(String nome) throws SQLException {
-        String sql = "SELECT id_ali, nome_ali, preco_ali, tipo_ali ,vegetariano"
-                + "zero"+
+        
+        // SQL CORRIGIDO: com "id_ali" e com a vírgula e espaço corretos
+        String sql = "SELECT id_ali, nome_ali, preco_ali, tipo_ali, vegetariano, zero " +
                      "FROM tbalimentos " +
                      "WHERE nome_ali ILIKE ? " +
                      "ORDER BY nome_ali";
@@ -47,7 +48,7 @@ public class AlimentoDAO {
                     if (tipo != null && (tipo.toLowerCase().contains("bebida")))
                     {
                         Bebida b = new Bebida();
-                        b.setId(rs.getInt("id_ali"));
+                        b.setId(rs.getInt("id_ali")); // Usando id_ali
                         b.setNome(rs.getString("nome_ali"));
                         b.setPreco(rs.getDouble("preco_ali"));
                         b.setTipo(tipo);
@@ -62,7 +63,7 @@ public class AlimentoDAO {
                     } else {
                         
                         Comida c = new Comida();
-                        c.setId(rs.getInt("id_ali"));
+                        c.setId(rs.getInt("id_ali")); // Usando id_ali
                         c.setNome(rs.getString("nome_ali"));
                         c.setPreco(rs.getDouble("preco_ali"));
                         c.setTipo(tipo);

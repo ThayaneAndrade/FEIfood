@@ -9,6 +9,7 @@ import View.Logado;
 import dao.UsuarioDAO;
 import dao.Conexao;
 import Model.Usuario;
+import View.BuscaAlimento;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -41,11 +42,17 @@ public class ControleLogin {
                 String nome = res.getString("nome_usu");
                 String usu = res.getString("usuario_usu");
                 String senha = res.getString("senha_usu");
-                Logado tela2 = new Logado (new Usuario(nome, usu, senha));
-                tela2.setLocationRelativeTo(tela1);
-                tela2.setVisible(true);
+                
+                Usuario usuarioLogado = new Usuario(nome,usu,senha);
+                usuarioLogado.setId(res.getInt("id_usu"));
+                
+                BuscaAlimento telaBusca = new BuscaAlimento();
+                new ControleBuscaAlimento(telaBusca, usuarioLogado);
+                
+                telaBusca.setLocationRelativeTo(tela1);
+                telaBusca.setVisible(true);
                 tela1.dispose();
- 
+
                 
             }else{
                 JOptionPane.showMessageDialog(tela1, "Login não efetuado",
