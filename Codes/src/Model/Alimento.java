@@ -8,18 +8,26 @@ package Model;
  *
  * @author thaya
  */
-public class Alimento {
-    private int id;
-    private String nome;
-    private double preco;
-    private String tipo;
+public abstract class Alimento {
+    protected int id;
+    protected String nome;
+    protected double preco;
+    protected String tipo;
+    protected boolean vegetariano;
+    protected boolean zero;
 
+    public Alimento(){
+        
+    }
 
-    public Alimento(int id, String nome, double preco, String tipo) {
+    public Alimento(int id, String nome, double preco, String tipo,
+            boolean vegetariano, boolean zero) {
         this.id = id;
         this.nome = nome;
         this.preco = preco;
         this.tipo = tipo;
+        this.vegetariano = vegetariano;
+        this.zero = zero;
     }
 
     public int getId() {
@@ -53,6 +61,23 @@ public class Alimento {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
+
+    public boolean isVegetariano() {
+        return vegetariano;
+    }
+
+    public void setVegetariano(boolean vegetariano) {
+        this.vegetariano = vegetariano;
+    }
+
+    public boolean isZero() {
+        return zero;
+    }
+
+    public void setZero(boolean zero) {
+        this.zero = zero;
+    }
+    
     
     @Override
     public String toString() {

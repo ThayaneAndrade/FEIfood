@@ -5,6 +5,7 @@
 package View;
 
 import Controller.ControleLogado;
+import Controller.ControleBuscaAlimento;
 import Model.Usuario;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -20,9 +21,12 @@ public class Logado extends javax.swing.JFrame {
     /**
      * Creates new form Logado
      */
+    private Usuario usuario; 
+    
     public Logado(Usuario usuario) {
         initComponents();
         setLocationRelativeTo(null);
+        this.usuario = usuario;
         lblDesejo.setText((usuario.getNome()));
         c = new ControleLogado(this, usuario);
     }
@@ -124,8 +128,8 @@ public class Logado extends javax.swing.JFrame {
 
     private void btMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btMenuActionPerformed
     BuscaAlimento telaBusca = new BuscaAlimento();
-    new Controller.ControleBuscaAlimento(telaBusca);
-    setLocationRelativeTo(null);
+    new Controller.ControleBuscaAlimento(telaBusca, this.usuario);
+    telaBusca.setLocationRelativeTo(null);
     telaBusca.setVisible(true);
     this.dispose();
     }//GEN-LAST:event_btMenuActionPerformed
