@@ -41,7 +41,6 @@ public class UsuarioDAO {
                  statement.setString(3, usuario.getSenha());
                  statement.execute();
         }
-        conn.close();
    }
    
    public void atualizar(Usuario usuario) throws SQLException {
@@ -52,7 +51,6 @@ public class UsuarioDAO {
         statement.setString(2, usuario.getUsuario());
         
         statement.execute();
-        conn.close();
         
    }
    
@@ -63,7 +61,5 @@ public class UsuarioDAO {
         statement.setString(1, usuario.getUsuario()); 
         
         statement.execute(); 
-        conn.close();
-       
     }
 }

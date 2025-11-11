@@ -21,6 +21,7 @@ public class BuscaAlimento extends javax.swing.JFrame {
     public BuscaAlimento() {
         initComponents();
         setLocationRelativeTo(null);
+        tbResultado.setRowHeight(25);
      
     
 }
@@ -114,6 +115,7 @@ public javax.swing.JButton getBtMeusPedidos() {
         btBuscar.setText("BUSCAR");
         btBuscar.setActionCommand("");
 
+        tbResultado.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tbResultado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 // Deixe as linhas de exemplo aqui (ou apague-as)

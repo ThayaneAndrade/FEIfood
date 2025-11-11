@@ -36,6 +36,7 @@ public class ControleLogin {
             Connection conn = conexao.getConnection();
             UsuarioDAO dao = new UsuarioDAO(conn);
             ResultSet res = dao.consultar(usuario);
+            
             if(res.next()){
                 JOptionPane.showMessageDialog(tela1, "Login Feito", "AVISO", 
                                               JOptionPane.INFORMATION_MESSAGE);

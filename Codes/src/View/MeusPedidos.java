@@ -22,6 +22,7 @@ public class MeusPedidos extends javax.swing.JFrame {
     public MeusPedidos() {
         initComponents();
         meusInit();
+        tblPedidos.setRowHeight(25);
     }
 
     private void meusInit(){
