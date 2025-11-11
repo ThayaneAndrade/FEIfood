@@ -10,6 +10,7 @@ import java.sql.SQLException;
  *
  * @author thaya
  */
+//Define a classe 'Conexao', que centraliza a criação da conexão com o banco
 public class Conexao {
     public Connection getConnection() throws SQLException {
         Connection conexao = DriverManager.getConnection(

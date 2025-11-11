@@ -25,65 +25,89 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author thaya
  */
+//Define a classe de controle para a tela "MeusPedidos".
 public class ControleMeusPedidos {
+  
     private final MeusPedidos tela;
+    //Guarda o objeto do usuário que está logado.
     private final Usuario usuarioLogado;
+    //Guarda uma lista dos pedidos carregados do banco para fácil acesso.
     private final List<Pedido> pedidosCarregados;
     
+    //Construtor que inicializa o controller com a tela e o usuário.
     public ControleMeusPedidos(MeusPedidos tela, Usuario usuarioLogado) {
         this.tela = tela;
         this.usuarioLogado = usuarioLogado;
+        //Inicializa a lista de pedidos.
         this.pedidosCarregados = new ArrayList<>();
        
+        //Chama o método que configura os listeners dos botões.
         configurarListeners();
         
         this.tela.addWindowListener(new java.awt.event.WindowAdapter() {
+            //Este método é chamado assim que a janela é aberta.
             @Override
             public void windowOpened(java.awt.event.WindowEvent e) {
+                //Chama o método para carregar os pedidos do banco.
                 carregarPedidos();
             }
             
         });
     }
+    //Método privado para configurar as ações de todos os botões da tela.
     private void configurarListeners() {
             this.tela.getBtAvaliar().addActionListener(e -> avaliarPedido());
+           
             this.tela.getBtExcluir().addActionListener(e -> excluirPedido());
+        
             this.tela.getBtVerItens().addActionListener(e -> verItensDoPedido());
+         
             this.tela.getBtVoltar().addActionListener(e -> tela.dispose());
         }
+    //Método que busca os pedidos no banco e preenche a tabela.
     public void carregarPedidos() {
-        // Limpa a tabela e a lista interna
+        //Pega o modelo de dados da tabela.
         DefaultTableModel model = (DefaultTableModel) tela.getTblPedidos().getModel();
+        //Limpa a tabela de resultados anteriores.
         model.setRowCount(0);
+        //Limpa a lista interna de pedidos.
         pedidosCarregados.clear();
 
         Conexao conexao = new Conexao();
+        
         try (Connection conn = conexao.getConnection()) {
+            
             PedidoDAO dao = new PedidoDAO(conn);
             
-            // Usa o método do DAO para buscar pedidos por usuário
-            ResultSet rs = dao.consultarPorUsuario(usuarioLogado); //
+            //Busca no banco todos os pedidos do usuário logado.
+            ResultSet rs = dao.consultarPorUsuario(usuarioLogado);
 
+            //Itera sobre cada linha (pedido) que o banco retornou.
             while (rs.next()) {
+                //Cria um novo objeto Pedido.
                 Pedido p = new Pedido();
+                //Define os dados do pedido com base nos resultados do banco.
                 p.setId(rs.getInt("id_ped"));
                 p.setDataPed(rs.getDate("data_ped"));
                 
-                // Trata a avaliação, que pode ser NULA no banco
+                //Pega a avaliação (pode ser nula no banco).
                 Integer avaliacao = (Integer) rs.getObject("avaliacao_ped");
                 p.setAvaliacaoPed(avaliacao);
                 
-                p.setUsuario(usuarioLogado); // Define o usuário
-                pedidosCarregados.add(p); // Adiciona na lista interna
-
-                // Adiciona na tabela da tela
+                //Define o usuário do pedido.
+                p.setUsuario(usuarioLogado); 
+                //Adiciona o pedido na lista interna para referência futura.
+                pedidosCarregados.add(p); 
+                
+                //Adiciona a linha na tabela da interface.
                 model.addRow(new Object[]{
                     p.getId(),
                     p.getDataPed(),
+                    //Mostra a nota ou "Não avaliado" se for nula.
                     (avaliacao != null ? avaliacao.toString() : "Não avaliado")
                 });
             }
-
+        
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(tela,
                     "Erro ao carregar pedidos: " + e.getMessage(),
@@ -91,51 +115,58 @@ public class ControleMeusPedidos {
         }
     }
 
-    /**
-     * Pega o pedido selecionado na JTable.
-     * @return O objeto Pedido selecionado, ou null se ninguém for selecionado.
-     */
+    
+    //Método privado para pegar o pedido selecionado na tabela.
     private Pedido getPedidoSelecionado() {
+        //Pega o índice da linha que o usuário clicou.
         int linha = tela.getTblPedidos().getSelectedRow();
+        //Se nenhuma linha estiver selecionada, linha é -1.
         if (linha == -1) {
+            //Avisa o usuário e retorna nulo.
             JOptionPane.showMessageDialog(tela,
                     "Por favor, selecione um pedido na tabela primeiro.",
                     "Aviso", JOptionPane.WARNING_MESSAGE);
             return null;
         }
-        // Retorna o pedido da nossa lista interna usando o índice da linha
+        //Retorna o objeto Pedido da lista interna, usando o índice da linha.
         return pedidosCarregados.get(linha);
     }
 
-    /**
-     * Ação do botão "Avaliar".
-     * Pega a nota do ComboBox e atualiza o pedido no banco.
-     */
+    
+    //Método chamado pelo botão "Avaliar".
     private void avaliarPedido() {
+        //Pega o pedido que o usuário selecionou na tabela.
         Pedido pedido = getPedidoSelecionado();
+        //Se for nulo (ninguém selecionado), para a execução.
         if (pedido == null) {
-            return; // Usuário não selecionou um pedido
+            return; 
         }
 
-        // Pega a nota da ComboBox (ex: "5 estrelas")
+        //Pega o valor selecionado no ComboBox (ex: "5").
         String notaStr = tela.getCmbNota().getSelectedItem().toString();
-        int nota = Integer.parseInt(notaStr); // Converte para int
+        //Converte a string "5" para o número inteiro 5.
+        int nota = Integer.parseInt(notaStr); 
 
+        //Abre uma nova conexão para esta transação.
         Conexao conexao = new Conexao();
         try (Connection conn = conexao.getConnection()) {
+            //Cria o DAO.
             PedidoDAO dao = new PedidoDAO(conn);
-
-            // **IMPORTANTE**: Precisamos de um novo método no PedidoDAO
-            // que SÓ atualiza a avaliação.
+            
+            //Chama o método do DAO que atualiza *apenas* a avaliação.
             dao.atualizarAvaliacao(pedido.getId(), nota);
 
+            //Mostra mensagem de sucesso.
             JOptionPane.showMessageDialog(tela,
-                    "Pedido " + pedido.getId() + " avaliado com nota " + nota + "!",
+                    "Pedido " + pedido.getId() + 
+                    " avaliado com nota " + nota + "!",
                     "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             
-            // Recarrega a tabela para mostrar a nova nota
+            
+            //Recarrega a tabela para mostrar a nova nota.
             carregarPedidos();
 
+        //Captura erros de SQL.
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(tela,
                     "Erro ao avaliar pedido: " + e.getMessage(),
@@ -143,36 +174,44 @@ public class ControleMeusPedidos {
         }
     }
 
-    /**
-     * Ação do botão "Excluir".
-     * Remove o pedido do banco de dados (e seus itens, via DAO).
-     */
+    
+    //Método chamado pelo botão "Excluir".
     private void excluirPedido() {
+        //Pega o pedido selecionado.
         Pedido pedido = getPedidoSelecionado();
         if (pedido == null) {
-            return; // Usuário não selecionou
-        }
-
-        int opc = JOptionPane.showConfirmDialog(tela,
-                "Tem certeza que deseja excluir o pedido " + pedido.getId() + "?",
-                "Confirmação de Exclusão",
-                JOptionPane.YES_NO_OPTION);
-
-        if (opc != JOptionPane.YES_OPTION) {
             return;
         }
 
+        //Pede confirmação ao usuário antes de apagar.
+        int opc = JOptionPane.showConfirmDialog(tela,
+                "Tem certeza que deseja excluir o pedido "
+                        + pedido.getId() + "?",
+                "Confirmação de Exclusão",
+                JOptionPane.YES_NO_OPTION);
+
+        //Se o usuário clicar em "Não" (opção 1), o método para.
+        if (opc != JOptionPane.YES_OPTION) { // YES_OPTION é 0
+            return;
+        }
+
+        //Abre a conexão.
         Conexao conexao = new Conexao();
         try (Connection conn = conexao.getConnection()) {
+            //Cria o DAO.
             PedidoDAO dao = new PedidoDAO(conn);
-            dao.remover(pedido); //
+            //Chama o método 'remover' do DAO.
+            dao.remover(pedido);
 
+            //Mostra mensagem de sucesso.
             JOptionPane.showMessageDialog(tela,
                     "Pedido " + pedido.getId() + " excluído com sucesso!",
                     "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             
-            carregarPedidos(); // Recarrega a tabela
+            //Recarrega a tabela para remover a linha excluída.
+            carregarPedidos(); 
 
+        //Captura erros de SQL.
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(tela,
                     "Erro ao excluir pedido: " + e.getMessage(),
@@ -180,50 +219,56 @@ public class ControleMeusPedidos {
         }
     }
 
-    /**
-     * Ação do botão "Ver Itens" (ou "Editar").
-     * Carrega os itens do pedido e abre a tela GerenciarPedido.
-     */
+    
+    //Método chamado pelo botão "Ver Itens".
     private void verItensDoPedido() {
+        //Pega o pedido selecionado.
         Pedido pedido = getPedidoSelecionado();
         if (pedido == null) {
-            return; // Não selecionou
+            return; 
         }
 
+        //Cria uma lista vazia para guardar os alimentos desse pedido.
         List<Alimento> itensDoPedido = new ArrayList<>();
+        //Abre a conexão.
         Conexao conexao = new Conexao();
 
         try (Connection conn = conexao.getConnection()) {
+            //Cria o DAO.
             PedidoDAO dao = new PedidoDAO(conn);
             
-            // **IMPORTANTE**: O SQL em 'consultarItens' precisa ser atualizado
-            ResultSet rs = dao.consultarItens(pedido); //
+            //Chama o método que busca os itens de um pedido específico.
+            ResultSet rs = dao.consultarItens(pedido);
 
+            //Itera sobre cada item (alimento) que o banco retornou.
             while (rs.next()) {
                 String tipo = rs.getString("tipo_ali");
                 Alimento a;
 
-                // Recria os objetos Comida/Bebida com base nos dados do banco
+                //Recria os objetos Comida/Bebida com base nos dados (Polimorfismo).
                 if (tipo != null && (tipo.toLowerCase().contains("bebida"))) {
                     Bebida b = new Bebida();
                     b.setAlcoolica(tipo.toLowerCase().contains("alcoolica"));
-                    b.setZero(rs.getBoolean("zero")); // Assume que 'zero' foi adicionado ao SQL
+                    b.setZero(rs.getBoolean("zero")); 
                     a = b;
                 } else {
                     Comida c = new Comida();
-                    c.setVegetariano(rs.getBoolean("vegetariano")); // Assume que 'vegetariano' foi adicionado
+                    c.setVegetariano(rs.getBoolean("vegetariano")); 
                     c.setZero(rs.getBoolean("zero"));
                     a = c;
                 }
 
+                //Define os dados comuns do Alimento.
                 a.setId(rs.getInt("id_ali"));
                 a.setNome(rs.getString("nome_ali"));
                 a.setPreco(rs.getDouble("preco_ali"));
                 a.setTipo(tipo);
 
+                //Adiciona o alimento recriado à lista.
                 itensDoPedido.add(a);
             }
 
+        //Captura erros de SQL.
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(tela,
                     "Erro ao carregar itens do pedido: " + e.getMessage(),
@@ -231,11 +276,13 @@ public class ControleMeusPedidos {
             return;
         }
 
-        // Se carregou com sucesso, abre a tela de GerenciarPedido
+        //Cria a tela GerenciarPedido.
         GerenciarPedido telaGerenciar = new GerenciarPedido();
         
+        //Chama o construtor de "Pedido Existente" do ControlePedido.
         new ControlePedido(telaGerenciar, usuarioLogado, pedido, itensDoPedido);
         
+        //Exibe a tela.
         telaGerenciar.setLocationRelativeTo(tela);
         telaGerenciar.setVisible(true);
     }
