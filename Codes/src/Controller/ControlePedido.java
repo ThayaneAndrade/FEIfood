@@ -88,8 +88,13 @@ public class ControlePedido {
         
         //Esconde o botão "Salvar".
         this.tela.getBtSalvar().setVisible(false);
-        //Mostra o botão "Excluir" (e "Atualizar", se existir).
+        //Mostra o botão "Excluir" 
         this.tela.getBtExcluir().setVisible(true);
+        
+        // ESCONDE O BOTÃO REMOVER ITEM
+        if (this.tela.getBtRemoverItem() != null) {
+        this.tela.getBtRemoverItem().setVisible(false); 
+    }
 
         //Chama os métodos para preencher a tabela e ligar os botões.
         atualizarTabela(); 

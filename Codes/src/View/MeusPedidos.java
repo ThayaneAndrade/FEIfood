@@ -148,7 +148,16 @@ public class MeusPedidos extends javax.swing.JFrame {
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblPedidos.setAutoscrolls(false);
         tblPedidos.setGridColor(new java.awt.Color(255, 255, 255));
         tblPedidos.setSelectionBackground(new java.awt.Color(255, 255, 255));
         jScrollPane1.setViewportView(tblPedidos);
