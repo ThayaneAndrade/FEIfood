@@ -20,8 +20,11 @@ public class Exclusao extends javax.swing.JFrame {
     /**
      * Creates new form Exclusao
      */
+    private Usuario usuario; 
+    
     public Exclusao(Usuario usuario) {
         initComponents();
+        this.usuario = usuario;
         setLocationRelativeTo(null);
         lblNome.setText(usuario.getNome());
         lblSenha.setText(usuario.getSenha());
@@ -147,7 +150,11 @@ public class Exclusao extends javax.swing.JFrame {
     }//GEN-LAST:event_btExcluirActionPerformed
 
     private void btVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarActionPerformed
-        this.setVisible(false);
+    BuscaAlimento telaBusca = new BuscaAlimento();
+    new Controller.ControleBuscaAlimento(telaBusca, this.usuario);
+    telaBusca.setLocationRelativeTo(null);
+    telaBusca.setVisible(true);
+    this.dispose();
     }//GEN-LAST:event_btVoltarActionPerformed
 
     /**

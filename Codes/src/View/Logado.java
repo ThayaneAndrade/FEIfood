@@ -183,7 +183,7 @@ public class Logado extends javax.swing.JFrame {
     new Controller.ControleBuscaAlimento(telaBusca, this.usuario);
     telaBusca.setLocationRelativeTo(null);
     telaBusca.setVisible(true);
-    this.dispose();
+    this.setVisible(false);
     }//GEN-LAST:event_btMenuActionPerformed
 
     /**

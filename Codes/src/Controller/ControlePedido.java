@@ -186,25 +186,30 @@ public class ControlePedido {
 
     //Método chamado pelo botão "Remover Item".
     private void removerItem() {
-        //Pega a linha selecionada pelo usuário na tabela.
-        int linhaSelecionada = tela.getTblItens().getSelectedRow();
-        //Verifica se alguma linha foi selecionada (-1 = nenhuma).
-        if (linhaSelecionada == -1) {
-            JOptionPane.showMessageDialog(tela, "Selecione um item da tabela "
-                    + "para remover.", "Aviso", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-        
-        //Remove o item da lista 'itensPedido' (a cópia local).
-        itensPedido.remove(linhaSelecionada);
-        //Atualiza a tabela na tela (sem o item removido).
-        atualizarTabela();
-        //Recalcula o preço total.
-        atualizarPrecoTotal();
-        //Avisa o usuário.
-        JOptionPane.showMessageDialog(tela, "Item removido do pedido.", "Aviso", 
-                JOptionPane.INFORMATION_MESSAGE);
+    int linhaSelecionada = tela.getTblItens().getSelectedRow();
+    if (linhaSelecionada == -1) {
+        JOptionPane.showMessageDialog(tela, "Selecione um item da tabela "
+                + "para remover.", "Aviso", JOptionPane.WARNING_MESSAGE);
+        return;
     }
+    
+    // 1. Pega o objeto Alimento que o utilizador quer apagar (da cópia local)
+    Alimento itemParaRemover = itensPedido.get(linhaSelecionada);
+    
+    // 2. Remove o item da cópia local (para atualizar a tabela visual)
+    itensPedido.remove(linhaSelecionada);
+    
+    // 3. Remove o mesmo item do carrinho principal
+    if (carrinhoOriginal != null) {
+        carrinhoOriginal.remove(itemParaRemover);
+    }
+    
+    // 4. Atualiza a interface
+    atualizarTabela();
+    atualizarPrecoTotal();
+    JOptionPane.showMessageDialog(tela, "Item removido do pedido.", "Aviso", 
+            JOptionPane.INFORMATION_MESSAGE);
+}
 
     //Método chamado pelo botão "Salvar" (Fazer Pedido).
     private void salvar() {
@@ -293,7 +298,7 @@ public class ControlePedido {
         if (opc != JOptionPane.YES_OPTION) {
             return;
         }
-        //Define o ID no objeto (redundante, mas garante).
+        //Define o ID no objeto 
         pedidoAtual.setId(id);
 
         //Abre a conexão.

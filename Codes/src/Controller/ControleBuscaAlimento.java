@@ -66,18 +66,14 @@ public class ControleBuscaAlimento {
         Logado telaLogado = new Logado(usuarioLogado);
         //Centraliza a nova tela em relação à tela atual.
         telaLogado.setLocationRelativeTo(tela);
-        //Define que fechar esta janela (Logado) apenas a removerá, sem fechar o app.
+        //Define que fechar esta janela (Logado) apenas a removerá, 
+        //sem fechar o app.
         telaLogado.setDefaultCloseOperation(javax.swing.WindowConstants.
                 DISPOSE_ON_CLOSE);
-        telaLogado.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosed(WindowEvent e) {
-                tela.setVisible(true);
-            }
-        });
         //Torna a tela visível.
         telaLogado.setVisible(true);
         tela.dispose();
+      
     }
     
     //Método privado para abrir a tela de "Meus Pedidos".
@@ -250,7 +246,7 @@ public class ControleBuscaAlimento {
             }
         });
          telaGerenciar.setVisible(true);
-         tela.setVisible(false);
+         tela.dispose();
          
         telaGerenciar.addWindowListener(new java.awt.event.WindowAdapter() {
             //Este método é chamado quando a tela GerenciarPedido é fechada.

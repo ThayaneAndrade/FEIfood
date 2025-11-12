@@ -21,7 +21,10 @@ public class Alteracao extends javax.swing.JFrame {
     /**
      * Creates new form Alteracao
      */
+    private Usuario usuario; 
+    
     public Alteracao(Usuario usuario) {
+        this.usuario = usuario;
         initComponents();
         setLocationRelativeTo(null);
         lblSenhaAntiga.setText(usuario.getSenha());
@@ -164,7 +167,12 @@ public class Alteracao extends javax.swing.JFrame {
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void btVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarActionPerformed
-        this.setVisible(false);
+
+    BuscaAlimento telaBusca = new BuscaAlimento();
+    new Controller.ControleBuscaAlimento(telaBusca, this.usuario);
+    telaBusca.setLocationRelativeTo(null);
+    telaBusca.setVisible(true);
+    this.setVisible(false);
     }//GEN-LAST:event_btVoltarActionPerformed
 
     /**
