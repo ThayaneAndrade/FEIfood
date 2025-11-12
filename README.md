@@ -12,7 +12,7 @@ A liguagem de programação utilizada foi Java, utilizando o padrão **MVC (Mode
   **Cadastro:** Um novo cliente pode criar uma conta fornecendo nome, usuario e senha. O sistema valida e insere os dados no 'tbusuarios'.
   <img width="500" height="488" alt="image" src="https://github.com/user-attachments/assets/bb36ce9e-be2c-4eef-a13a-6c339f79c78c" />
 
-  **Login:** O usuario pode autenticar-se nesra funcionalidade. O sistema consulta o banco para validar as credenciais. 
+  **Login:** O usuario pode autenticar-se nessa funcionalidade. O sistema consulta o banco para validar as credenciais. 
   <img width="500" height="488" alt="image" src="https://github.com/user-attachments/assets/95474ddf-d8e7-4b5f-b1c8-48ae0e85e0fa" />
 
   **Minha Conta (Logado):** Após o Login é possivel acessar a área Minha Conta através de um botão no Menu de pesquisar item, nesta funcionalidade é possivel optar por alterar senha ou excluir cadastro do sistema. 
