@@ -23,22 +23,22 @@ A liguagem de programação utilizada foi Java, utilizando o padrão **MVC (Mode
 * **Seleção Multipla:** O usuario pode selecionar múltiplos itens (usando 'Ctrl' ou 'Shift') na tabela de resultado de pesquisa
 * **Lógica 'Carrinho de Compras':** Foi implementada a lógica de um carrinho, que é uma lista local no 'ControleBuscaAlimento'
       ***Adicionar Pedido:** Adiciona os itens selecionados ao carrinho;
-      ***Ver Pedido:** Abre a tela 'GererenciarPedido' com um resumo de todos os itens do              carrinho.
+      ***Ver Pedido:** Abre a tela 'GererenciarPedido' com um resumo de todos os itens do carrinho.
   
 ### Gestão de Pedidos
 * **Criar e Gerir um Novo Pedido (GerenciarPedido):**
-        * O usuário pode **remover itens** do seu pedido antes de salvá-lo através do botão                'remover item';
+        * O usuário pode **remover itens** do seu pedido antes de salvá-lo através do botão 'remover item';
         * O ID do pedido e a Data são gerados automaticamente (esses campos não são editáveis);
-        * Ao **Salvar**, o sistema insere os dados em 'tbpedidos' e 'tbpedido_alimento', também           limpa o carrinho
+        * Ao **Salvar**, o sistema insere os dados em 'tbpedidos' e 'tbpedido_alimento', também limpa o carrinho
   <img width="860" height="560" alt="image" src="https://github.com/user-attachments/assets/7ec3577a-a44c-4c1f-873f-943ccefe2bd4" />
 
 * **Ver Histórico e Avaliar (MeusPedidos):**
-       * Acessada através da tela "Meus Pedidos", esta tela lista todos os pedidos já feitos              pelo usuário (buscando em 'tbpedidos' por 'usuario_id')
-       * **Avaliar Pedido:** O usuario pode selecionar um pedido na tabela, escolher uma nota de          0 a 5 e clicar em "Avaliar".Essa ação chama o método 'atualizarAvaliacao' no DAO, que            executa um 'UPDATE' no banco.
+       * Acessada através da tela "Meus Pedidos", esta tela lista todos os pedidos já feitos pelo usuário (buscando em 'tbpedidos' por 'usuario_id')
+       * **Avaliar Pedido:** O usuario pode selecionar um pedido na tabela, escolher uma nota de 0 a 5 e clicar em "Avaliar".Essa ação chama o método 'atualizarAvaliacao' no DAO, que executa um 'UPDATE' no banco.
        * **Excluir Pedido:** É possível excluir um pedido do histórico.
   <img width="862" height="533" alt="image" src="https://github.com/user-attachments/assets/4c4562e1-c732-4421-b3f9-8760c0082f53" />
 
-       * **Ver Itens:** Abre a tela 'GerenciarPedido' em modo "somente leitura" (botões ficam             escondidos)
+       * **Ver Itens:** Abre a tela 'GerenciarPedido' em modo "somente leitura" (botões ficam escondidos)
   <img width="862" height="533" alt="image" src="https://github.com/user-attachments/assets/0769245a-4f60-47ae-807c-ebd32bb52cb9" />
 
 ## MVC
