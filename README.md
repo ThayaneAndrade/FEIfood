@@ -1,5 +1,8 @@
 <img width="500" height="70" alt="image" src="https://github.com/user-attachments/assets/b741186d-56c9-4de5-a8e0-d6d703dd2948" />
 
+**Desenvolvedora:** Thayane de Sousa Andrade 
+**RA:** 22.224.003-8
+
 Este projeto consite em uma aplicação desktop para a gestão de pedidos de alimentos, inspirado na plataforma IFood. Neste sistema é possível: fazer login, cadastro, pesquisar alimentos, montar pedido, finalizar pedido e avaliar pedido.
 
 A liguagem de programação utilizada foi Java, utilizando o padrão **MVC (Model-View-Controller)** que garamte melhor organização e todos os dados presentes no projeto estão em um banco de dados   que foi inserido no código. 
