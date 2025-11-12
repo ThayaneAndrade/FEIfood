@@ -43,15 +43,19 @@ A liguagem de programação utilizada foi Java, utilizando o padrão **MVC (Mode
 
 ## MVC
 * **Model:** Pacote 'Model'. Contém as classes que representam os dados, como 'Usuario', 'Pedido', 'Alimento', `Comida`, e `Bebida`.
+  
  <img width="260" height="200" alt="image" src="https://github.com/user-attachments/assets/a48a098e-ef9b-4678-8075-040c6d989915" />
 
 * **View:** Pacote 'View'. Contém todas as classes 'Jframe' (ex:'Login').
+  
   <img width="260" height="200" alt="image" src="https://github.com/user-attachments/assets/816edc4b-2e14-4d8c-b81e-5be04311b713" />
 
 * **Controller:** Pacote 'Controller'. Contém as classes de lógica (ex: 'ContoleLogin').
+  
   <img width="260" height="200" alt="image" src="https://github.com/user-attachments/assets/c708d089-146e-4ed7-805f-f99cdeb555c2" />
 
 * **DAO:** Pacote 'dao'. Contém as classes que executam os comandos SQL (ex: 'UsuarioDAO').
+  
 <img width="260" height="200" alt="image" src="https://github.com/user-attachments/assets/476800b6-ac6f-4542-a07e-3423a48a153c" />
 
 ## Conceitos Aplicados 
