@@ -50,7 +50,7 @@ public class Logado extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(250, 249, 246));
         jPanel1.setPreferredSize(new java.awt.Dimension(386, 340));
@@ -168,12 +168,14 @@ public class Logado extends javax.swing.JFrame {
       Usuario usuario = c.chamarAlteracao();
       Alteracao alt = new Alteracao (usuario);
       alt.setVisible(true);
+      this.dispose();
     }//GEN-LAST:event_btAlterarActionPerformed
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
         Usuario usuario = c.chamarExclusao();
         Exclusao exc = new Exclusao(usuario);
         exc.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btExcluirActionPerformed
 
     private void btMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btMenuActionPerformed

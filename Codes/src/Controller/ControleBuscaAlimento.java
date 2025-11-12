@@ -10,6 +10,8 @@ import View.BuscaAlimento;
 import View.GerenciarPedido;
 import View.Logado;
 import View.MeusPedidos;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -65,9 +67,17 @@ public class ControleBuscaAlimento {
         //Centraliza a nova tela em relação à tela atual.
         telaLogado.setLocationRelativeTo(tela);
         //Define que fechar esta janela (Logado) apenas a removerá, sem fechar o app.
-        telaLogado.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        telaLogado.setDefaultCloseOperation(javax.swing.WindowConstants.
+                DISPOSE_ON_CLOSE);
+        telaLogado.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                tela.setVisible(true);
+            }
+        });
         //Torna a tela visível.
         telaLogado.setVisible(true);
+        tela.dispose();
     }
     
     //Método privado para abrir a tela de "Meus Pedidos".
@@ -79,8 +89,16 @@ public class ControleBuscaAlimento {
 
             //Configura e exibe a tela de Meus Pedidos.
             telaMeusPedidos.setLocationRelativeTo(tela);
-            telaMeusPedidos.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+            telaMeusPedidos.setDefaultCloseOperation(javax.swing.WindowConstants
+                    .DISPOSE_ON_CLOSE);
+            telaMeusPedidos.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                tela.setVisible(true);
+            }
+        });
             telaMeusPedidos.setVisible(true);
+            tela.dispose();
         }
     
     //Método privado chamado pelo botão "Buscar".
@@ -210,7 +228,8 @@ public class ControleBuscaAlimento {
     private void verPedido() {
         //Verifica se o carrinho está vazio.
         if (this.carrinhoDeItens.isEmpty()) {
-            JOptionPane.showMessageDialog(tela, "Seu pedido está vazio. Adicione itens primeiro.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(tela, "Seu pedido está vazio. "
+                    + "Adicione itens primeiro.", "Aviso", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
@@ -221,14 +240,25 @@ public class ControleBuscaAlimento {
         new Controller.ControlePedido(telaGerenciar, usuarioLogado, this.carrinhoDeItens);
 
         telaGerenciar.setLocationRelativeTo(tela);
-        telaGerenciar.setVisible(true);
-        
+        tela.dispose();
+        telaGerenciar.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                // Atualiza o contador do carrinho
+                tela.getBtVerPedido().setText("Ver Pedido (" + carrinhoDeItens.size() + ")");
+                tela.setVisible(true);
+            }
+        });
+         telaGerenciar.setVisible(true);
+         tela.setVisible(false);
+         
         telaGerenciar.addWindowListener(new java.awt.event.WindowAdapter() {
             //Este método é chamado quando a tela GerenciarPedido é fechada.
             @Override
             public void windowClosed(java.awt.event.WindowEvent e) {
                 //Atualiza o texto do botão (ex: se o carrinho foi limpo, volta a 0).
-                tela.getBtVerPedido().setText("Ver Pedido (" + carrinhoDeItens.size() + ")");
+                tela.getBtVerPedido().setText("Ver Pedido (" + 
+                        carrinhoDeItens.size() + ")");
             }
         });
     }

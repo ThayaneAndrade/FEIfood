@@ -61,6 +61,7 @@ public class ControleCadastro {
             new Controller.ControleLogin(telaLogin);
             //Torna a tela de Login visível para o usuário.
             telaLogin.setVisible(true);
+
             
         //Bloco 'catch' para capturar qualquer erro que o 'try' possa lançar.
         }catch(SQLException ex){

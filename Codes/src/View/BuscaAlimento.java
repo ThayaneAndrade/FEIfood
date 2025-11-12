@@ -26,11 +26,10 @@ public class BuscaAlimento extends javax.swing.JFrame {
     
 }
     public javax.swing.JButton getBtMinhaConta() {
-    return btMinhaConta; // (assumindo que o nome da variável é btMinhaConta)
-}
+    return btMinhaConta; }
 
 public javax.swing.JButton getBtMeusPedidos() {
-    return btMeusPedidos; // (assumindo que o nome da variável é btMeusPedidos)
+    return btMeusPedidos; 
 }
 
     public JButton getjButton1() {
@@ -99,7 +98,7 @@ public javax.swing.JButton getBtMeusPedidos() {
         btVerPedido = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(250, 249, 246));
         jPanel1.setPreferredSize(new java.awt.Dimension(693, 401));
